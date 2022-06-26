@@ -64,7 +64,7 @@ class MovieShowSeeder extends Seeder
             'start_day' => $date1,
             'start_time' => $minuteStart1,
             'movie_show_duration' => 130,
-            'ordered' => '[]' 
+            'ordered' => '[]',
         ]);
 
         DB::table('movie_show')->insert([
@@ -74,7 +74,7 @@ class MovieShowSeeder extends Seeder
             'start_day' => $date2,
             'start_time' => $minuteStart2,
             'movie_show_duration' => 96,
-            'ordered' => '[]' 
+            'ordered' => '[]',
         ]);
 
         DB::table('movie_show')->insert([
@@ -84,7 +84,7 @@ class MovieShowSeeder extends Seeder
             'start_day' => $date3,
             'start_time' => $minuteStart3,
             'movie_show_duration' => 96,
-            'ordered' => '[]' 
+            'ordered' => '[]',
         ]);
 
         DB::table('movie_show')->insert([
@@ -94,7 +94,7 @@ class MovieShowSeeder extends Seeder
             'start_day' => $date4,
             'start_time' => $minuteStart4,
             'movie_show_duration' => 130,
-            'ordered' => '[]' 
+            'ordered' => '[]',
         ]);
 
         DB::table('movie_show')->insert([
@@ -104,7 +104,7 @@ class MovieShowSeeder extends Seeder
             'start_day' => $date5,
             'start_time' => $minuteStart5,
             'movie_show_duration' => 130,
-            'ordered' => '[]' 
+            'ordered' => '[]',
         ]);
 
         DB::table('movie_show')->insert([
@@ -114,7 +114,7 @@ class MovieShowSeeder extends Seeder
             'start_day' => $date6,
             'start_time' => $minuteStart6,
             'movie_show_duration' => 130,
-            'ordered' => '[]' 
+            'ordered' => '[]',
         ]);
     }
 }
