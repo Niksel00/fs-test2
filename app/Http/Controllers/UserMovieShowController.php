@@ -7,6 +7,7 @@ use App\Http\Resources\Post;
 use App\Models\MovieShow;
 use App\Models\Hall;
 use App\Models\Film;
+use DateTime;
 
 class UserMovieShowController extends Controller
 {
@@ -51,24 +52,26 @@ class UserMovieShowController extends Controller
     {
         $halls = Hall::all()->where('is_active', 1);
         $films = Film::all();
-        $movieShow = MovieShow::all()->where('start_day', $id)->sortBy('start_time');
-        $output=[];
+        $movieShow = MovieShow::all()->where('start_day', $id)->sortBy('start_time');;
+        $output = [];
         foreach ($films as $film) {
-            $newArr = ['film_id' => $film['id'], 'name' => $film['name'], 'country' => $film['country'], 'duration' => $film['duration'], 'poster' => $film['poster'], 'halls' => []];
+            $newArr = ['film_id'=> $film['id'],'name'=> $film['name'], 'country'=> $film['country'], 'duration'=> $film['duration'],'poster'=> $film['poster'], 'halls'=> []];
             foreach ($halls as $hall) {
-                $newHall = ['hall_id' => $hall['id'], 'name' => $hall['name'], 'row' => $hall['row'], 'seats' => $hall['seats'], 'price' => $halls['price'], 'vip_price' => $halls['vip_price'], 'seances' => []];
+                $newHall = ['hall_id'=> $hall['id'],'name'=> $hall['name'], 'row'=> $hall['row'], 'row'=> $hall['row'], 'seats'=> $hall['seats'], 'price'=> $hall['price'], 'vip_price'=> $hall['vip_price'], 'seances'=> []];
                 foreach ($movieShow as $movie) {
-                    if ($movie['hall_id'] === $newHall['hall_id']) {
-                        if ($movie['film_id'] === $film['id']) {
-                            $newHall['seances'][] = $movie;
-                        }
+                if ($movie['hall_id'] === $newHall['hall_id']) {
+                    if ($movie['film_id'] === $film['id']) {
+                        $newHall['seances'][] = $movie;
                     }
+                }
                 }
                 $newArr['halls'][] = $newHall;
             }
             $output[] = $newArr;
         }
+
         return new Post($output);
+
     }
 
     /**

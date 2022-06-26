@@ -33,4 +33,4 @@ class CreateFilmTable extends Migration
     {
         Schema::dropIfExists('film');
     }
-};
+}

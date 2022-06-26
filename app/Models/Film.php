@@ -14,7 +14,7 @@ class Film extends Model
         'description',
         'country',
         'duration',
-        'poster',
+        'poster'
     ];
 
     protected $table = 'film';

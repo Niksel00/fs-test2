@@ -23,7 +23,9 @@ class CreateTicketsTable extends Migration
             $table->unsignedBigInteger('price');
             $table->string('film');
             $table->timestamps();
+
             $table->foreign('show_id')->references('id')->on('movie_show');
+
         });
     }
 

@@ -12,7 +12,7 @@ class Seat extends Model
     protected $fillable = [
         'hall_id',
         'seat_number',
-        'status',
+        'status'
     ];
 
     protected $table = 'seats';

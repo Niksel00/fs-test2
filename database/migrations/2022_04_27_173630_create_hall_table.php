@@ -34,4 +34,4 @@ class CreateHallTable extends Migration
     {
         Schema::dropIfExists('hall');
     }
-};
+}

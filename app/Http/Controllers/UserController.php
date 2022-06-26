@@ -39,9 +39,9 @@ class UserController extends Controller
         $length = count($user);
         if ($length === 0) {
             return 'Неправильный логин';
-        }
+        }    
         if ($user[0]->password === $request->password) {
-            return 'Logged successful';
+            return 'Logged succesful';
         } else {
             return 'Неправильный пароль';
         }

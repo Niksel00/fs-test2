@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hall;
 use Illuminate\Http\Request;
 use App\Http\Resources\Post;
+use App\Models\Hall;
 use App\Models\Seat;
 use App\Models\MovieShow;
 use App\Models\Ticket;
@@ -28,7 +28,7 @@ class HallController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -52,11 +52,11 @@ class HallController extends Controller
         $i = 1;
         do {
             $seat = new Seat([
-                'hall_id' => $newHall->id,
+                'hall_id' =>  $newHall->id,
                 'seat_number' => $i,
                 'status' => 1,
             ]);
-            $seat -> save();
+            $seat->save();
             $i += 1;
         } while ($i <= 49);
 
@@ -66,7 +66,7 @@ class HallController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -89,7 +89,7 @@ class HallController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -111,28 +111,33 @@ class HallController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $hall = Hall::findOrFail($id);
-        if ($hall) {
+        if($hall) {
             $seatsArr = Seat::all()->where('hall_id', $id);
-            foreach ($seatsArr as $seat) {
+            foreach($seatsArr as $seat) {
                 $seat->delete();
             }
 
             $movieShowArr = MovieShow::all()->where('hall_id', $id);
-            foreach ($movieShowArr as $movie) {
+            foreach($movieShowArr as $movie) {
                 $tickets = Ticket::all()->where('show_id', $movie->id);
-                foreach ($tickets as $ticket) {
+                foreach($tickets as $ticket) {
                     $ticket->delete();
                 }
                 $movie->delete();
             }
+
+
+
             $hall->delete();
         }
+
         return "Successful delete";
+
     }
 }

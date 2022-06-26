@@ -19,8 +19,13 @@ class CreateSeatsTable extends Migration
             $table->unsignedBigInteger('seat_number');
             $table->unsignedBigInteger('status');
             $table->timestamps();
+
             $table->foreign('hall_id')->references('id')->on('hall');
         });
+
+        // Schema::table('seats', function($table) {
+        //     $table->foreign('hall_id')->references('id')->on('hall');
+        // });
     }
 
     /**

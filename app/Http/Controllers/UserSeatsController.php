@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Post;
 use App\Models\MovieShow;
 use App\Models\Hall;
+use App\Models\Film;
 use App\Models\Seat;
 
 class UserSeatsController extends Controller
@@ -59,7 +60,7 @@ class UserSeatsController extends Controller
         $output = [
             'hall' => $hall,
             'seats' => $seatsArr,
-            'movieShow' => $movieShow,
+            'movieShow' => $movieShow
         ];
         return new Post($output);
     }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Seat;
 use Illuminate\Http\Request;
+use App\Models\Seat;
 use App\Models\Hall;
 use App\Http\Resources\Post;
 
@@ -44,7 +44,7 @@ class SeatsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -77,13 +77,13 @@ class SeatsController extends Controller
         $hall->seats = $request->seats;
         $hall->save();
         $seatsArr = Seat::all()->where('hall_id', $id);
-        foreach ($seatsArr as $seat) {
+        foreach($seatsArr as $seat) {
             $seat->delete();
         }
 
         foreach ($newData as $value) {
             $seat = new Seat([
-                'hall_id' => $value->hall_id,
+                'hall_id' =>  $value->hall_id,
                 'seat_number' => $value->seat_number,
                 'status' => $value->status,
             ]);

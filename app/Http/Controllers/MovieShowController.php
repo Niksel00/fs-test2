@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MovieShow;
 use Illuminate\Http\Request;
 use App\Http\Resources\Post;
 use App\Models\Ticket;
+use App\Models\MovieShow;
+use DateTime;
 
 class MovieShowController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -38,23 +38,25 @@ class MovieShowController extends Controller
     public function store(Request $request)
     {
         $newMovie = new MovieShow([
-            'film_id' => $request->film_id,
+            'film_id' =>  $request->film_id,
             'hall_id' => $request->hall_id,
             'start_time' => $request->start_time,
             'movie_show_duration' => $request->movie_show_duration,
             'start_day' => $request->start_day,
-            'film_name' => $request->film_name,
-            'ordered' => '[]',
+            'film_name' => $request->name,
+            'ordered' => '[]'
         ]);
+
         $newMovie->save();
 
-        return "New movie show added";
+        return 'New movie show added';
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -65,7 +67,7 @@ class MovieShowController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -85,31 +87,32 @@ class MovieShowController extends Controller
         $newData = json_decode($request->dataArray);
         $deleted = json_decode($request->deleted);
 
-        if (count($deleted) > 0) {
+        if(count($deleted) > 0) {
             foreach($deleted as $item) {
                 $targetItem = MovieShow::findOrFail($item);
                 $tickets = Ticket::all()->where('show_id', $item);
-                foreach ($tickets as $ticket) {
+                foreach($tickets as $ticket) {
                     $ticket->delete();
                 }
                 $targetItem->delete();
             }
         }
 
-        if (count($newData) > 0) {
-            foreach ($newData as $newMovieShow) {
+        if(count($newData) > 0) {
+            foreach($newData as $newMovieShow) {
                 $newMovie = new MovieShow([
-                    'film_id' => $newMovieShow->film_id,
+                    'film_id' =>  $newMovieShow->film_id,
                     'hall_id' => $newMovieShow->hall_id,
                     'start_time' => $newMovieShow->start_time,
                     'movie_show_duration' => $newMovieShow->movie_show_duration,
                     'start_day' => $newMovieShow->start_day,
                     'film_name' => $newMovieShow->film_name,
-                    'ordered' => '[]',
+                    'ordered' => '[]'
                 ]);
                 $newMovie->save();
             }
         }
+
         return "Update successful";
     }
 

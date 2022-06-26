@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Film;
 use Illuminate\Http\Request;
 use App\Http\Resources\Post;
+use Illuminate\Support\Facades\Storage;
 use File;
 
 class FilmController extends Controller
@@ -39,15 +40,15 @@ class FilmController extends Controller
     {
         $image = $request->file('poster');
         $imageName = time().'.'.$image->extension();
-        $image->move(public_path('images'), $imageName);
+        $image->move(public_path('images'),$imageName);
         $path = 'images/'.$imageName;
 
         $newFilm = new Film([
-            'name' => $request->name,
+            'name' =>  $request->name,
             'description' => $request->description,
             'country' => $request->country,
             'duration' => $request->duration,
-            'poster' => $path,
+            'poster' => $path
         ]);
         $newFilm->save();
 
@@ -60,7 +61,7 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Film $film)
     {
         return new Post(Film::findOrFail($id));
     }
@@ -83,7 +84,7 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, $id)
     {
         //
     }
