@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Resources\Post;
-use App\Models\Ticket;
 use App\Models\MovieShow;
-use SimpleSoftwareIO\QrCode\Generator;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
 
 class TicketController extends Controller
 {
@@ -40,9 +37,8 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-
         $newTicket = new Ticket([
-            'show_id' =>  $request->show_id,
+            'show_id' => $request->show_id,
             'seats' => $request->seats,
             'start_day' => $request->start_day,
             'start_time' => $request->start_time,
@@ -51,13 +47,14 @@ class TicketController extends Controller
             'price' => $request->price,
         ]);
         $newTicket->save();
+
         $show = MovieShow::findOrFail($request->show_id);
         $newOrder = json_decode($request->seats);
-        $ordered = json_decode($show->ordered);
+        $ordered = json_decode($request->ordered);
         foreach ($newOrder as $order) {
             $ordered[] = $order;
         }
-        $orderOutput = json_encode($ordered);
+        $orderOutput = json_decode($ordered);
         $show->ordered = $orderOutput;
         $show->save();
         return $newTicket->id;
